@@ -14,7 +14,7 @@ Main story (operations): **"How much do late deliveries hurt customer review sco
 
 Context (commercial): the size and shape of the business (revenue, orders, average order value, categories, regions, monthly trend), so the operations finding has scale.
 
-The commercial view supports the operations story; it is not a second, equal story. Berk should be able to tell the project in one sentence in an interview: what the problem was, what caused it, and what he would recommend.
+The commercial view supports the operations story; it is not a second, equal story. Berk should be able to tell the project in one sentence in an interview: what the problem was, what it is associated with, and what he would recommend.
 
 ## Goals
 

@@ -1,0 +1,3 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["data: tests that need the raw Kaggle CSVs in data/raw/ and a built data/olist.duckdb"]

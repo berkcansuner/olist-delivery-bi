@@ -1,0 +1,13 @@
+# Environment
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Data: raw CSVs are downloaded from Kaggle (see data/raw/README.md), never committed
+data/raw/*.csv
+data/raw/*.zip
+
+# Build outputs, rebuilt by build.py
+data/*.duckdb
+data/*.duckdb.wal
+data/marts/*.parquet

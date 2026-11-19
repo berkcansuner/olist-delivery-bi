@@ -47,6 +47,19 @@ SELECT
 FROM raw.orders AS o
 WHERE o.order_status = 'delivered' AND o.order_delivered_customer_date IS NOT NULL;
 
+-- Review coverage by purchase month for the last months. Reviews end on 2018-08-31, so the last
+-- months could lack reviews for orders delivered later; this checks whether that biases the window end.
+SELECT
+    strftime(CAST(o.order_purchase_timestamp AS TIMESTAMP), '%Y-%m') AS purchase_month,
+    count(*) AS delivered_orders,
+    count_if(EXISTS (SELECT 1 FROM raw.reviews AS r WHERE r.order_id = o.order_id)) AS with_review,
+    round(100 * with_review / delivered_orders, 2) AS pct_with_review
+FROM raw.orders AS o
+WHERE o.order_status = 'delivered' AND o.order_delivered_customer_date IS NOT NULL
+  AND CAST(o.order_purchase_timestamp AS TIMESTAMP) >= TIMESTAMP '2018-05-01'
+GROUP BY purchase_month
+ORDER BY purchase_month;
+
 -- Product categories without an English translation, with how much they sell.
 SELECT
     p.product_category_name,

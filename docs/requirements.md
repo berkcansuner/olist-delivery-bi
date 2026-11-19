@@ -1,6 +1,6 @@
 # Requirements: Delivery Performance and Customer Satisfaction
 
-*Version 1, 2026-11-18. Values marked "after profiling" are confirmed in [profiling.md](profiling.md) and updated here.*
+*Version 2, 2026-11-19: reporting window, ranking minimum and delay buckets fixed after [profiling](profiling.md). Version 1, 2026-11-18.*
 
 ## 1. Stakeholder and purpose
 
@@ -34,7 +34,7 @@ Context (commercial):
 | Delivered order | `order_status = 'delivered'` and a non-null customer delivery date. |
 | Delay days | Delivered date minus estimated delivery date, both as dates (no time of day). Negative means early. |
 | Late order | A delivered order with delay days > 0. Comparing dates, not timestamps, because the estimate is stored at midnight: a delivery at 15:00 on the promised day is on time. |
-| Delay bucket | `Early` (< 0), `On estimated day` (0), `1-3 days late`, `4-7 days late`, `8-14 days late`, `15+ days late`. |
+| Delay bucket | `Early` (< 0), `On estimated day` (0), `1-3 days late`, `4-7 days late`, `8-14 days late`, `15+ days late`. Confirmed in profiling: each late bucket holds 1.4% to 1.9% of delivered orders. |
 | Review score | One review per order: if an order has several, the latest by answer time. Scale 1–5. |
 | Region | Customer state (delivery destination), grouped into Brazil's five macro-regions: North, Northeast, Central-West, Southeast, South. |
 
@@ -54,9 +54,9 @@ Context (commercial):
 
 Measures at seller or category level count **distinct orders**, so an order with several items counts once. An order with items from several sellers counts for each of those sellers; the share of such orders is reported in profiling.
 
-**Ranking minimum:** sellers and states are ranked only if they have at least **30 delivered orders** in the selected period. Below that, one or two late orders swing the rate too much. (Threshold confirmed after profiling.)
+**Ranking minimum:** sellers and states are ranked only if they have at least **30 delivered orders** in the selected period. Below that, one or two late orders swing the rate too much. Confirmed in profiling: over the whole data, 627 sellers reach 30 delivered orders, and they hold 83.5% of seller-level delivered orders.
 
-**Reporting window:** months at the start and end of the data with very few orders are excluded from trends. The exact window is fixed after profiling.
+**Reporting window:** purchase dates from 2017-01-01 to 2018-08-31 (20 full months). The whole report uses this window, KPI cards included, so cards and charts count the same orders. It excludes 2016 (329 orders, and none in November 2016) and September to October 2018 (20 orders, none delivered). Together that is 0.35% of orders ([profiling](profiling.md), section 2).
 
 ## 5. Report pages
 
